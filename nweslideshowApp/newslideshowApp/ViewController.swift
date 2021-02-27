@@ -100,17 +100,32 @@ class ViewController: UIViewController {
     
     @IBAction func tap(_ sender: Any) {
         self.performSegue(withIdentifier: "toSecond", sender: nil)
-    
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let kakudai:ExViewController = segue.destination as! ExViewController
         
-        kakudai.sendimage = images[imageindex]!
-        
-        
+        if timer == nil {
+            kakudai.sendimage = images[imageindex]!
+            
+        }else{
+            if timer_sec < 2 {
+                kakudai.sendimage = images[0]
+            }else if timer_sec >= 2 && timer_sec < 4 {
+                kakudai.sendimage = images[1]
+            } else if timer_sec >= 4 && timer_sec <= 6{
+                kakudai.sendimage = images[2]
+            }
+            self.timer.invalidate()
+            timer = nil
+            nextimageoutlet.isHidden = false
+            backimageoutlet.isHidden = false
+            satartstopimageoutlet.setTitle("再生", for: .normal)
+            
+        }
     }
-   
+    
     
 }
 
